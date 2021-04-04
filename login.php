@@ -3,6 +3,7 @@ include "conectar.php";
 if(isset($_POST['login'])){
 	$ci = $_POST['ci'];
 	$pass = $_POST['comtraseña']; 
+	$color = $_POST['color'];
 	if($ci == "" || $_POST['comtraseña'] == null){
 		echo "<script>alert('Error: usuario y/o clave vacios!!');window.location.href='index.php';</script>"; 
 	}else{
@@ -12,7 +13,7 @@ if(isset($_POST['login'])){
 		}else{
 			$filas = mysqli_num_rows($consulta);
 			if($filas == 0){
-				echo "<script>alert('Error: usuario y/o clave incorrectos!!');</script>";
+				echo "<script>alert('Error: usuario y/o clave incorrectos!!');window.location.href='index.php';</script>";
 			}else{
 				$query = mysqli_query($con,"SELECT * FROM persona WHERE ci = '$ci'");
 				$fila = mysqli_fetch_array($query);
@@ -40,8 +41,6 @@ if(isset($_POST['login'])){
     	</div>
 		</header>
 		<h2>Bienvenido <?php echo $fila["nombre"]?></h2>
-
-<?php 
-
-include "footer.php";
-?>
+		<?php 
+		include "footer.php";
+		echo "<script>colorChange2('$color')</script>";?>
